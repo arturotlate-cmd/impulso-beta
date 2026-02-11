@@ -1,60 +1,55 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IMPULSO | Marketplace</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>IMPULSO | Marketplace</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-<nav class="navbar">
-  <div class="logo">IMPULSO</div>
+  <div class="container">
 
-  <div class="nav-links">
-    <a href="products.html">Explorar</a>
-    <a href="publicar.html" id="publishLink">Publicar</a>
-    <a href="perfil.html">Perfil</a>
-    <a href="#" id="loginBtn">Login</a>
+    <h1 style="font-size: 32px; margin-bottom: 10px;">
+      Conecta. Ofrece. Impulsa.
+    </h1>
+
+    <p style="margin-bottom: 30px; color: #94a3b8;">
+      Marketplace de servicios sin intermediación en pagos.
+    </p>
+
+    <div class="card">
+      <h2>Explorar servicios</h2>
+      <p>Encuentra oportunidades disponibles.</p>
+      <button onclick="location.href='products.html'">
+        Explorar
+      </button>
+    </div>
+
+    <div class="card">
+      <h2>Publicar servicio</h2>
+      <p>Ofrece tu talento al mundo.</p>
+      <button onclick="location.href='publicar.html'">
+        Publicar
+      </button>
+    </div>
+
+    <div class="card">
+      <h2>Mi perfil</h2>
+      <p>Administra tus productos y conversaciones.</p>
+      <button onclick="location.href='perfil.html'">
+        Perfil
+      </button>
+    </div>
+
   </div>
-</nav>
-
-<section class="hero">
-  <h1>Conecta. Ofrece. Impulsa.</h1>
-  <p>Marketplace de servicios sin intermediación en pagos.</p>
-  <a href="products.html" class="btn-primary">Explorar servicios</a>
-</section>
-
-<script type="module">
-import { login, logout, observeAuth } from "./auth.js";
-
-const loginBtn = document.getElementById("loginBtn");
-
-observeAuth(user => {
-  if (user) {
-    loginBtn.textContent = "Cerrar sesión";
-    loginBtn.onclick = () => logout();
-  } else {
-    loginBtn.textContent = "Login";
-    loginBtn.onclick = () => login();
-  }
-});
-
-  const publishLink = document.getElementById("publishLink");
-
-observeAuth(user => {
-  if (user) {
-    publishLink.style.display = "inline-block";
-  } else {
-    publishLink.style.display = "none";
-  }
-});
-
-</script>
 
 </body>
 </html>
+
+
 
 

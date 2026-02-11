@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Explorar | IMPULSO</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">IMPULSO</div>
+  <div class="nav-links">
+    <a href="products.html">Explorar</a>
+    <a href="publicar.html">Publicar</a>
+    <a href="perfil.html">Perfil</a>
+    <a href="#" id="loginBtn">Login</a>
+  </div>
+</nav>
+
+<section class="products-section">
+  <h2>Servicios disponibles</h2>
+  <div id="productsContainer" class="products-grid"></div>
+</section>
+
+<script type="module">
+import { observeAuth, login, logout } from "./auth.js";
+import { getFirestore, collection, getDocs, orderBy, query }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const db = getFirestore();
+const container = document.getElementById("productsContainer");
+const loginBtn = document.getElementById("loginBtn");
+
+/* 🔐 Navbar dinámico */
+observeAuth(user => {
+  if (user) {
+    loginBtn.textContent = "Cerrar sesión";
+    loginBtn.onclick = () => logout();
+  } else {
+    loginBtn.textContent = "Login";
+    loginBtn.onclick = () => login();
+  }
+});
+
+/* 📦 Cargar productos */
+async function loadProducts() {
+
+  const q = query(
+    collection(db, "products"),
+    orderBy("createdAt", "desc")
+  );
+
+  const snapshot = await getDocs(q);
+
+  container.innerHTML = "";
+
+  if (snapshot.empty) {
+    container.innerHTML = "<p>No hay servicios publicados todavía.</p>";
+    return;
+  }
+
+  snapshot.forEach(doc => {
+    const data = doc.data();
+
+    const card = document.createElement("div");
+    card.className = "product-card";
+
+    card.innerHTML = `
+      <h3>${data.title}</h3>
+      <p>$${data.price}</p>
+      <small>Publicado por ${data.sellerName}</small>
+      <br><br>
+      <button class="btn-primary">
+        Ver servicio
+      </button>
+    `;
+
+    card.querySelector("button").onclick = () => {
+      window.location.href = `product.html?id=${doc.id}`;
+    };
+
+    container.appendChild(card);
+  });
+}
+
+loadProducts();
+
+</script>
+
+</body>
+</html>

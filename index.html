@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>IMPULSO | Marketplace</title>
+  <title>IMPULSO | Marketplace de Servicios</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="stylesheet" href="style.css">
@@ -11,44 +11,79 @@
 
 <body>
 
-  <div class="container">
-
-    <h1 style="font-size: 32px; margin-bottom: 10px;">
-      Conecta. Ofrece. Impulsa.
-    </h1>
-
-    <p style="margin-bottom: 30px; color: #94a3b8;">
-      Marketplace de servicios sin intermediación en pagos.
-    </p>
-
-    <div class="card">
-      <h2>Explorar servicios</h2>
-      <p>Encuentra oportunidades disponibles.</p>
-      <button onclick="location.href='products.html'">
-        Explorar
-      </button>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">IMPULSO</div>
+      <div class="nav-links">
+        <a href="products.html">Explorar</a>
+        <a href="publicar.html">Publicar</a>
+        <a href="perfil.html">Perfil</a>
+      </div>
     </div>
+  </nav>
 
-    <div class="card">
-      <h2>Publicar servicio</h2>
-      <p>Ofrece tu talento al mundo.</p>
-      <button onclick="location.href='publicar.html'">
-        Publicar
-      </button>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Conecta. Ofrece. Impulsa.</h1>
+      <p class="subtitle">
+        Marketplace de servicios sin intermediación en pagos.
+      </p>
+
+      <div class="hero-buttons">
+        <a href="products.html" class="btn-primary">Explorar servicios</a>
+        <a href="publicar.html" class="btn-secondary">Publicar servicio</a>
+      </div>
     </div>
+  </section>
 
-    <div class="card">
-      <h2>Mi perfil</h2>
-      <p>Administra tus productos y conversaciones.</p>
-      <button onclick="location.href='perfil.html'">
-        Perfil
-      </button>
+  <!-- COMO FUNCIONA -->
+  <section class="section">
+    <h2>Cómo funciona</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3>1. Publica</h3>
+        <p>Describe tu servicio de forma clara y profesional.</p>
+      </div>
+      <div class="card">
+        <h3>2. Conecta</h3>
+        <p>El comprador te contacta directamente por chat.</p>
+      </div>
+      <div class="card">
+        <h3>3. Acordar</h3>
+        <p>El acuerdo es directo entre ambas partes.</p>
+      </div>
     </div>
+  </section>
 
-  </div>
+  <!-- CONFIANZA -->
+  <section class="section dark">
+    <h2>Confianza y seguridad</h2>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Autenticación segura</h3>
+        <p>Acceso mediante Google.</p>
+      </div>
+      <div class="card">
+        <h3>Chat privado</h3>
+        <p>Solo comprador y vendedor pueden comunicarse.</p>
+      </div>
+      <div class="card">
+        <h3>Transparencia</h3>
+        <p>IMPULSO no interviene en pagos por el momento.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    © 2026 IMPULSO · Impulsando oportunidades
+  </footer>
 
 </body>
 </html>
+
+
 
 
 

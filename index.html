@@ -184,8 +184,42 @@
   });
 </script>
 
+  <script>
+  const hero = document.querySelector(".hero");
+  const heroContent = document.querySelector(".hero-content");
+
+  hero.addEventListener("mousemove", (e) => {
+    const rect = hero.getBoundingClientRect();
+
+    const x = (e.clientX - rect.left) / rect.width;
+    const y = (e.clientY - rect.top) / rect.height;
+
+    const moveX = (x - 0.5) * 20;  // intensidad horizontal
+    const moveY = (y - 0.5) * 20;  // intensidad vertical
+
+    heroContent.style.transform =
+      `rotateX(${ -moveY * 0.3 }deg) rotateY(${ moveX * 0.3 }deg)`;
+
+    hero.style.setProperty(
+      "--glowX",
+      `${(x - 0.5) * 40}px`
+    );
+
+    hero.style.setProperty(
+      "--glowY",
+      `${(y - 0.5) * 40}px`
+    );
+  });
+
+  hero.addEventListener("mouseleave", () => {
+    heroContent.style.transform =
+      "rotateX(0deg) rotateY(0deg)";
+  });
+</script>
+
 </body>
 </html> 
+
 
 
 

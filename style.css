@@ -163,5 +163,22 @@ button {
   color: #22C55E;
   font-weight: 500;
 }
+.products-section {
+  padding: 60px 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.products-section h2 {
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+}
+
 
 

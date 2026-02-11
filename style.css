@@ -194,15 +194,6 @@ body {
   transition: 0.3s;
 }
 
-/* Subrayado animado */
-@keyframes underlineGrow {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
 
 
 

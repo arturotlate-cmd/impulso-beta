@@ -1,4 +1,4 @@
-:root {
+  :root {
   --blue: #1E3A8A;
   --dark: #111827;
   --green: #22C55E;
@@ -115,12 +115,12 @@ body {
 
 /* HERO */
 .hero {
-  height: 100vh;
+  min-height: 99vh;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 0 20px;
+  padding-top: 120px;
 }
 
 .hero-content h1 {
@@ -478,6 +478,7 @@ body::before {
 .btn-secondary:active {
   transform: scale(0.97);
 }
+
 
 
 

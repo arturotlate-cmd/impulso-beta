@@ -351,6 +351,67 @@ body::before {
   letter-spacing: -1px;
   line-height: 1.1;
 }
+/* ===============================
+   RESPONSIVE ANIMATIONS
+   =============================== */
+
+/* Desktop animación normal */
+.hero-content {
+  animation: heroFade 1.2s ease forwards;
+}
+
+/* Móvil animación más corta y ligera */
+@media (max-width: 768px) {
+  .hero-content {
+    animation: heroFade 0.7s ease forwards;
+  }
+
+  .hero-content h1,
+  .hero-content .subtitle,
+  .hero-buttons {
+    animation-duration: 0.6s;
+  }
+}
+/* ===============================
+   PERFORMANCE OPTIMIZATION
+   =============================== */
+
+.hero-content,
+.card,
+.btn-primary,
+.btn-secondary {
+  will-change: transform, opacity;
+}
+/* ===============================
+   REDUCED MOTION SUPPORT
+   =============================== */
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@media (max-width: 768px) {
+  .hero-content {
+    padding: 40px 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 34px;
+  }
+
+  .hero-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+}
+
 
 
 

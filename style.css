@@ -156,6 +156,64 @@ body {
   background: #0b1220;
   color: #64748b;
 }
+/* ===============================
+   LOGO ANIMATION
+   =============================== */
+
+.logo-text {
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--green);
+  letter-spacing: 1px;
+  position: relative;
+  display: inline-block;
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Glow effect */
+.logo-text::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 3px;
+  background: var(--green);
+  border-radius: 4px;
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: underlineGrow 1.2s ease forwards;
+  animation-delay: 0.5s;
+}
+
+/* Hover moderno */
+.logo-text:hover {
+  text-shadow: 0 0 10px rgba(34, 197, 94, 0.6);
+  transition: 0.3s;
+}
+
+/* Entrada suave */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Subrayado animado */
+@keyframes underlineGrow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 
 
 

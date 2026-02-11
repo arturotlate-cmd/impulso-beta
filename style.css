@@ -179,6 +179,36 @@ button {
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 25px;
 }
+.product-detail {
+  padding: 60px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.detail-card {
+  background: #111827;
+  padding: 40px;
+  border-radius: 16px;
+  max-width: 600px;
+  width: 100%;
+  border: 1px solid #1e293b;
+}
+
+.detail-card h2 {
+  margin-top: 0;
+  font-weight: 600;
+}
+
+.detail-card h3 {
+  color: #22C55E;
+  font-weight: 600;
+}
+
+.seller {
+  color: #9ca3af;
+  margin-bottom: 30px;
+}
+
 
 
 

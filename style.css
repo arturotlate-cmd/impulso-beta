@@ -270,34 +270,53 @@ body {
   }
 }
 /* ===============================
-   FONDO ANIMADO SaaS
+   MINIMAL SaaS BACKGROUND
    =============================== */
 
 body {
+  margin: 0;
+  background: radial-gradient(
+      circle at 20% 30%,
+      rgba(37, 99, 235, 0.08),
+      transparent 40%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(124, 58, 237, 0.08),
+      transparent 40%
+    ),
+    #0f172a;
+  color: #f1f5f9;
+  font-family: 'Inter', sans-serif;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
   background: linear-gradient(
     120deg,
-    #0f172a,
-    #111827,
-    #1e293b,
-    #0f172a
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.02)
   );
-  background-size: 300% 300%;
-  animation: gradientMove 18s ease infinite;
-  color: white;
+  background-size: 200% 200%;
+  animation: subtleMove 20s ease infinite;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Animación suave */
-@keyframes gradientMove {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+@keyframes subtleMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
+.hero,
+.section,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+
 
 
 

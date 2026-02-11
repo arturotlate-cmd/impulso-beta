@@ -45,46 +45,64 @@
     </div>
   </section>
 
-<!-- COMO FUNCIONA -->
-<section class="section reveal">
+<!-- ===============================
+     STEPS SECTION PRO
+================================ -->
+
+<section class="steps">
   <div class="container">
 
-    <h2>Cómo funciona</h2>
+    <h2 class="section-title reveal">
+      Cómo funciona
+    </h2>
 
     <div class="grid-steps">
 
+      <div class="progress-line"></div>
+
+      <!-- STEP 1 -->
       <div class="step-card reveal">
+        <span class="step-number">01</span>
+
         <div class="step-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M12 2v20M2 12h20"/>
           </svg>
         </div>
+
         <h3>Publica</h3>
         <p>Describe tu servicio de forma clara y profesional.</p>
       </div>
 
+      <!-- STEP 2 -->
       <div class="step-card reveal">
+        <span class="step-number">02</span>
+
         <div class="step-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M21 15a4 4 0 0 1-4 4H7l-4 4V5a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z"/>
+            <circle cx="12" cy="12" r="9"/>
           </svg>
         </div>
+
         <h3>Conecta</h3>
-        <p>El comprador te contacta directamente por chat.</p>
+        <p>Recibe solicitudes de clientes interesados.</p>
       </div>
 
+      <!-- STEP 3 -->
       <div class="step-card reveal">
+        <span class="step-number">03</span>
+
         <div class="step-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M5 13l4 4L19 7"/>
           </svg>
         </div>
-        <h3>Acordar</h3>
-        <p>El acuerdo es directo entre ambas partes.</p>
+
+        <h3>Crece</h3>
+        <p>Construye reputación y aumenta tus ingresos.</p>
       </div>
 
     </div>
-
   </div>
 </section>
 
@@ -251,8 +269,44 @@
   animate();
 </script>
 
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+
+    const stepsSection = document.querySelector(".grid-steps");
+    const progressLine = document.querySelector(".progress-line");
+    const stepCards = document.querySelectorAll(".step-card");
+
+    function updateProgress() {
+      if (!stepsSection) return;
+
+      const rect = stepsSection.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      const visible = Math.min(
+        Math.max((windowHeight - rect.top) / rect.height, 0),
+        1
+      );
+
+      if (progressLine) {
+        progressLine.style.width = visible * 80 + "%";
+      }
+
+      stepCards.forEach((card, index) => {
+        if (visible > index * 0.3) {
+          card.style.borderColor = "rgba(34,197,94,0.4)";
+          card.style.boxShadow = "0 0 30px rgba(34,197,94,0.15)";
+        }
+      });
+    }
+
+    window.addEventListener("scroll", updateProgress);
+
+  });
+</script>
+
 </body>
 </html> 
+
 
 
 

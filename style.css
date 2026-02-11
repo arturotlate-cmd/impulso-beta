@@ -172,17 +172,21 @@ body::after {
 }
 
 .hero-content {
-  backdrop-filter: blur(20px);
-  background: rgba(255,255,255,0.05);
-  padding: 60px;
+  transform-style: preserve-3d;
+}
+
+.hero-content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
   border-radius: var(--radius-xl);
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow:
-    0 40px 120px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(255,255,255,0.05);
-  animation: heroFade 1.2s ease forwards;
-  transition: transform var(--duration-slow) var(--ease-smooth);
-  will-change: transform;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.15),
+    rgba(255,255,255,0.02)
+  );
+  pointer-events: none;
+  mix-blend-mode: overlay;
 }
 
 .hero h1 {
@@ -742,6 +746,28 @@ body::before {
   z-index: 0;
   transition: background 0.15s ease;
 }
+/* =========================================
+   SUBTLE GRID BACKGROUND
+========================================= */
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+  animation: gridMove 40s linear infinite;
+}
+
+@keyframes gridMove {
+  from { transform: translateY(0px); }
+  to { transform: translateY(40px); }
+}
+
 
 
 

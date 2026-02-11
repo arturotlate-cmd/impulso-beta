@@ -260,6 +260,49 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
 }
+/* ===============================
+   MOVIMIENTO ULTRA SUTIL
+   =============================== */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.02)
+  );
+  background-size: 200% 200%;
+  animation: subtleMove 20s ease infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes subtleMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* ===============================
+   CONTENIDO SOBRE EL FONDO
+   =============================== */
+
+.hero,
+.section,
+.footer {
+  position: relative;
+  z-index: 1;
+}
+/* ===============================
+   NAVBAR PREMIUM DEPTH
+   =============================== */
+
+.navbar {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
 
 
 

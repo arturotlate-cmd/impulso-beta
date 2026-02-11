@@ -1,96 +1,80 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Detalle del Servicio | IMPULSO</title>
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <title>Producto</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<nav class="navbar">
-  <div class="logo">IMPULSO</div>
-  <div class="nav-links">
-    <a href="products.html">Explorar</a>
-    <a href="publicar.html">Publicar</a>
-    <a href="perfil.html">Perfil</a>
-    <a href="#" id="loginBtn">Login</a>
-  </div>
-</nav>
-
-<section class="product-detail">
-  <div class="detail-card">
-    <h2 id="productTitle"></h2>
-    <p id="productDescription"></p>
-    <h3 id="productPrice"></h3>
-    <p class="seller" id="productSeller"></p>
-
-    <button id="contactBtn" class="btn-primary">
-      Contactar vendedor
-    </button>
-  </div>
-</section>
+<div id="product"></div>
 
 <script type="module">
-import { observeAuth, login, logout } from "./auth.js";
+import { db } from "./firebase.js";
+import { observeAuth } from "./auth.js";
 import {
-  getFirestore,
   doc,
-  getDoc
+  getDoc,
+  collection,
+  addDoc,
+  query,
+  where,
+  getDocs
 } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const db = getFirestore();
-const loginBtn = document.getElementById("loginBtn");
-const contactBtn = document.getElementById("contactBtn");
-
 const params = new URLSearchParams(window.location.search);
-const productId = params.get("id");
+const id = params.get("id");
 
-if (!productId) {
-  window.location.href = "products.html";
-}
+const productSnap = await getDoc(doc(db, "products", id));
+const product = productSnap.data();
 
-/* 🔐 Navbar dinámico */
+const container = document.getElementById("product");
+
+container.innerHTML = `
+  <h2>${product.title}</h2>
+  <p>${product.description}</p>
+  <strong>$${product.price}</strong>
+  <button id="contact">Contactar</button>
+`;
+
 observeAuth(user => {
-  if (user) {
-    loginBtn.textContent = "Cerrar sesión";
-    loginBtn.onclick = () => logout();
-  } else {
-    loginBtn.textContent = "Login";
-    loginBtn.onclick = () => login();
-  }
+  if (!user) return;
+
+  document.getElementById("contact").onclick = async () => {
+
+    if (user.uid === product.ownerId) {
+      alert("No puedes contactarte a ti mismo.");
+      return;
+    }
+
+    const q = query(
+      collection(db, "chats"),
+      where("productId", "==", id),
+      where("participants", "array-contains", user.uid)
+    );
+
+    const snapshot = await getDocs(q);
+
+    if (!snapshot.empty) {
+      window.location.href = `chat.html?id=${snapshot.docs[0].id}`;
+      return;
+    }
+
+    const chatRef = await addDoc(collection(db, "chats"), {
+      productId: id,
+      buyerId: user.uid,
+      sellerId: product.ownerId,
+      participants: [user.uid, product.ownerId],
+      createdAt: new Date(),
+      lastMessage: ""
+    });
+
+    window.location.href = `chat.html?id=${chatRef.id}`;
+  };
 });
-
-/* 📦 Cargar producto */
-async function loadProduct() {
-
-  const docRef = doc(db, "products", productId);
-  const snapshot = await getDoc(docRef);
-
-  if (!snapshot.exists()) {
-    window.location.href = "products.html";
-    return;
-  }
-
-  const data = snapshot.data();
-
-  document.getElementById("productTitle").textContent = data.title;
-  document.getElementById("productDescription").textContent = data.description;
-  document.getElementById("productPrice").textContent = "$" + data.price;
-  document.getElementById("productSeller").textContent =
-    "Publicado por " + data.sellerName;
-
-}
-
-contactBtn.onclick = () => {
-  window.location.href = `chat.html?product=${productId}`;
-};
-
-loadProduct();
-
 </script>
 
 </body>
 </html>
+
+

@@ -177,6 +177,32 @@ body {
     transform: translateY(0);
   }
 }
+/* ===============================
+   BUTTON BASE STYLE
+   =============================== */
+
+.btn-primary,
+.btn-secondary {
+  display: inline-block;
+  padding: 14px 28px;
+  border-radius: 12px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Primary */
+.btn-primary {
+  background: var(--green);
+  color: #0f172a;
+}
+
+/* Secondary */
+.btn-secondary {
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--light);
+  background: rgba(255,255,255,0.05);
+}
 
 /* ===============================
    MICRO INTERACTIONS - BUTTONS (PREMIUM)
@@ -445,6 +471,7 @@ body::before {
 .btn-secondary:active {
   transform: scale(0.97);
 }
+
 
 
 

@@ -124,8 +124,15 @@ body {
 }
 
 .hero-content h1 {
-  font-size: 48px;
-  margin-bottom: 20px;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 700;
+  background: linear-gradient(
+    90deg,
+    #ffffff,
+    #cbd5e1
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
@@ -471,6 +478,7 @@ body::before {
 .btn-secondary:active {
   transform: scale(0.97);
 }
+
 
 
 

@@ -2,31 +2,87 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Perfil</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi Perfil | IMPULSO</title>
 <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
-<div class="hero">
-  <h1 id="name"></h1>
-  <p id="email"></p>
-  <button id="logout">Cerrar sesión</button>
-</div>
+<nav class="navbar">
+  <div class="logo">IMPULSO</div>
+  <div class="nav-links">
+    <a href="products.html">Explorar</a>
+    <a href="publicar.html">Publicar</a>
+    <a href="#" id="loginBtn">Login</a>
+  </div>
+</nav>
+
+<section class="profile-section">
+  <h2 id="userName"></h2>
+  <p>Mis publicaciones</p>
+  <div id="userProducts" class="products-grid"></div>
+</section>
 
 <script type="module">
-import { auth } from "./firebase.js";
-import { observeUser, logout, protectPage } from "./auth.js";
+import { observeAuth, logout } from "./auth.js";
+import { getFirestore, collection, query, where, getDocs }
+from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-protectPage();
+const db = getFirestore();
+const userName = document.getElementById("userName");
+const container = document.getElementById("userProducts");
+const loginBtn = document.getElementById("loginBtn");
 
-observeUser(user => {
-  if (!user) return;
-  name.textContent = user.displayName;
-  email.textContent = user.email;
+observeAuth(async (user) => {
+
+  if (!user) {
+    window.location.href = "index.html";
+    return;
+  }
+
+  userName.textContent = user.displayName;
+
+  loginBtn.textContent = "Cerrar sesión";
+  loginBtn.onclick = () => logout();
+
+  /* 🔎 CONSULTAR SOLO PRODUCTOS DEL USUARIO */
+  const q = query(
+    collection(db, "products"),
+    where("sellerId", "==", user.uid)
+  );
+
+  const snapshot = await getDocs(q);
+
+  container.innerHTML = "";
+
+  if (snapshot.empty) {
+    container.innerHTML = "<p>No tienes publicaciones aún.</p>";
+    return;
+  }
+
+  snapshot.forEach(doc => {
+    const data = doc.data();
+
+    const card = document.createElement("div");
+    card.className = "product-card";
+
+    card.innerHTML = `
+      <h3>${data.title}</h3>
+      <p>$${data.price}</p>
+      <button onclick="window.location.href='product.html?id=${doc.id}'" class="btn-secondary">
+        Ver
+      </button>
+    `;
+
+    container.appendChild(card);
+  });
+
 });
-
-logout.onclick = () => logout();
 </script>
 
 </body>
 </html>
+
+

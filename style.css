@@ -78,6 +78,7 @@ body {
   background-size: 300% 300%;
   animation: gradientMove 18s ease infinite;
   color: var(--light);
+  overflow-x: hidden;
 }
 
 @keyframes gradientMove {
@@ -85,19 +86,18 @@ body {
   50% { background-position: 100% 50%; }
   100% { background-position: 0% 50%; }
 }
-/* ===============================
-   ULTRA SUBTLE NOISE
-=============================== */
 
+/* Ultra subtle noise */
 body::after {
   content: "";
   position: fixed;
   inset: 0;
   background-image: url("https://www.transparenttextures.com/patterns/noise.png");
-  opacity: 0.03; /* Súper sutil */
+  opacity: 0.03;
   pointer-events: none;
   z-index: 0;
 }
+
 /* ===============================
    NAVBAR
 =============================== */
@@ -121,18 +121,30 @@ body::after {
 }
 
 .nav-container {
-.section {
+  max-width: 1200px;
   margin: auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.nav-links a {
+  color: var(--light);
+  text-decoration: none;
+  margin-left: 20px;
+  font-size: var(--text-sm);
+  transition: color var(--duration-fast) var(--ease-smooth);
+}
+
+.nav-links a:hover {
+  color: var(--green);
+}
+
 /* ===============================
    HERO
 =============================== */
 .hero {
-  min-height: 99vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,8 +161,8 @@ body::after {
   border-radius: var(--radius-xl);
   border: 1px solid rgba(255,255,255,0.08);
   box-shadow:
-  0 40px 120px rgba(0,0,0,0.5),
-  inset 0 1px 0 rgba(255,255,255,0.05);
+    0 40px 120px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.05);
   animation: heroFade 1.2s ease forwards;
   transition: transform var(--duration-slow) var(--ease-smooth);
   will-change: transform;
@@ -223,23 +235,10 @@ body::after {
 .btn-secondary:active {
   transform: scale(0.97);
 }
+
 /* ===============================
-   FOCUS STATES PREMIUM
-=============================== */
-
-a:focus-visible,
-button:focus-visible {
-  outline: none;
-  box-shadow:
-    0 0 0 2px rgba(34,197,94,0.5),
-    0 0 0 6px rgba(34,197,94,0.15);
-  border-radius: var(--radius-md);
-  transition: box-shadow var(--duration-fast) var(--ease-smooth);
-}
-   /* ===============================
    LAYOUT SYSTEM
-   =============================== */
-
+=============================== */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -248,29 +247,8 @@ button:focus-visible {
 }
 
 .section {
-  padding-top: var(--space-6);
-  padding-bottom: var(--space-6);
-}
-
-/* Mejora visual para secciones internas */
-.section h2 {
-  font-size: var(--text-3xl);
-  margin-bottom: var(--space-4);
-  letter-spacing: -0.02em;
-}
-
-.section p {
-  font-size: var(--text-lg);
-  color: #cbd5e1;
-  margin-bottom: var(--space-2);
-}
-/* ===============================
-   SECTIONS
-=============================== */
-.section {
   padding-top: clamp(100px, 10vw, 160px);
   padding-bottom: clamp(100px, 10vw, 160px);
-  margin: auto;
   text-align: center;
 }
 
@@ -282,43 +260,10 @@ button:focus-visible {
   margin-bottom: var(--space-5);
 }
 
-/* ===============================
-   GRID & CARDS
-=============================== */
-.grid-3 {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 30px;
-}
-
-.card {
-  background: linear-gradient(
-    145deg,
-    rgba(255,255,255,0.06),
-    rgba(255,255,255,0.03)
-  );
-  border-radius: var(--radius-lg);
-  padding: var(--space-4);
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(12px);
-  box-shadow: var(--shadow-sm);
-  transition: all var(--duration-normal) var(--ease-smooth);
-}
-
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-md);
-}
-
-.card h3 {
-  font-size: var(--text-xl);
-  margin-bottom: 12px;
-}
-
-.card p {
-  font-size: var(--text-base);
-  color: #94a3b8;
-  line-height: 1.6;
+.section p {
+  font-size: var(--text-lg);
+  color: #cbd5e1;
+  margin-bottom: var(--space-2);
 }
 
 /* ===============================
@@ -332,20 +277,6 @@ button:focus-visible {
 }
 
 /* ===============================
-   SCROLL REVEAL
-=============================== */
-.reveal {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ===============================
    REDUCED MOTION
 =============================== */
 @media (prefers-reduced-motion: reduce) {
@@ -354,6 +285,8 @@ button:focus-visible {
     transition: none !important;
   }
 }
+
+
 
 
 

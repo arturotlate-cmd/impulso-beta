@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat | IMPULSO</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">IMPULSO</div>
+  <div class="nav-links">
+    <a href="products.html">Explorar</a>
+    <a href="publicar.html">Publicar</a>
+    <a href="perfil.html">Perfil</a>
+    <a href="#" id="loginBtn">Login</a>
+  </div>
+</nav>
+
+<section class="chat-container">
+  <div id="messages" class="messages"></div>
+
+  <div class="chat-input">
+    <input type="text" id="messageInput" placeholder="Escribe tu mensaje...">
+    <button id="sendBtn">Enviar</button>
+  </div>
+</section>
+
+<script type="module">
+import { observeAuth, login, logout } from "./auth.js";
+import { 
+  getFirestore, 
+  collection, 
+  addDoc, 
+  query, 
+  orderBy, 
+  onSnapshot,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const db = getFirestore();
+const loginBtn = document.getElementById("loginBtn");
+const sendBtn = document.getElementById("sendBtn");
+const messageInput = document.getElementById("messageInput");
+const messagesDiv = document.getElementById("messages");
+
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("product");
+
+if (!productId) {
+  window.location.href = "products.html";
+}
+
+let currentUser = null;
+
+/* 🔐 Navbar dinámico */
+observeAuth(user => {
+  currentUser = user;
+
+  if (user) {
+    loginBtn.textContent = "Cerrar sesión";
+    loginBtn.onclick = () => logout();
+  } else {
+    loginBtn.textContent = "Login";
+    loginBtn.onclick = () => login();
+  }
+});
+
+/* 📡 Escuchar mensajes en tiempo real */
+const messagesRef = collection(db, "chats", productId, "messages");
+const q = query(messagesRef, orderBy("createdAt"));
+
+onSnapshot(q, snapshot => {
+  messagesDiv.innerHTML = "";
+
+  snapshot.forEach(doc => {
+    const data = doc.data();
+    const msgDiv = document.createElement("div");
+
+    msgDiv.classList.add("message");
+
+    if (currentUser && data.uid === currentUser.uid) {
+      msgDiv.classList.add("mine");
+    } else {
+      msgDiv.classList.add("other");
+    }
+
+    msgDiv.textContent = data.text;
+    messagesDiv.appendChild(msgDiv);
+  });
+
+  messagesDiv.scrollTop = messagesDiv.scrollHeight;
+});
+
+/* ✉ Enviar mensaje */
+sendBtn.onclick = async () => {
+
+  if (!currentUser) {
+    alert("Debes iniciar sesión para enviar mensajes.");
+    login();
+    return;
+  }
+
+  const text = messageInput.value.trim();
+  if (!text) return;
+
+  await addDoc(messagesRef, {
+    text: text,
+    uid: currentUser.uid,
+    name: currentUser.displayName,
+    createdAt: serverTimestamp()
+  });
+
+  messageInput.value = "";
+};
+
+</script>
+
+</body>
+</html>

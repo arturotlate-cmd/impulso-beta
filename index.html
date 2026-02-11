@@ -138,149 +138,132 @@
     © 2026 IMPULSO · Impulsando oportunidades
   </footer>
   
-  <script>
+ <script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* =========================
+     NAVBAR SCROLL STATE
+  ========================== */
   const navbar = document.querySelector(".navbar");
 
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 50) {
-      navbar.classList.add("scrolled");
-    } else {
-      navbar.classList.remove("scrolled");
-    }
-  });
-</script>
-  
-<script>
-const buttons = document.querySelectorAll(".btn-primary, .btn-secondary");
-
-buttons.forEach(button => {
-
-  let currentX = 0;
-  let currentY = 0;
-  let targetX = 0;
-  let targetY = 0;
-
-  button.addEventListener("mousemove", (e) => {
-    const rect = button.getBoundingClientRect();
-    const x = e.clientX - rect.left - rect.width / 2;
-    const y = e.clientY - rect.top - rect.height / 2;
-
-    targetX = x * 0.2;
-    targetY = y * 0.2;
+    navbar.classList.toggle("scrolled", window.scrollY > 50);
   });
 
-  button.addEventListener("mouseleave", () => {
-    targetX = 0;
-    targetY = 0;
-  });
 
-  function animate() {
-    currentX += (targetX - currentX) * 0.15;
-    currentY += (targetY - currentY) * 0.15;
+  /* =========================
+     SMOOTH SCROLL PREMIUM
+  ========================== */
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener("click", function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute("href"));
+      if (!target) return;
 
-    button.style.transform =
-      `translate(${currentX}px, ${currentY}px) scale(1.05)`;
-
-    requestAnimationFrame(animate);
-  }
-
-  animate();
-});
-</script>
-  
-<script>
-  
-  buttons.forEach(button => {
-    button.addEventListener("click", function (e) {
-
-      const circle = document.createElement("span");
-      circle.classList.add("ripple");
-
-      const rect = button.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-
-      circle.style.width = circle.style.height = size + "px";
-      circle.style.left = e.clientX - rect.left - size / 2 + "px";
-      circle.style.top = e.clientY - rect.top - size / 2 + "px";
-
-      this.appendChild(circle);
-
-      setTimeout(() => {
-        circle.remove();
-      }, 600);
+      window.scrollTo({
+        top: target.offsetTop - 80,
+        behavior: "smooth"
+      });
     });
   });
-</script>
-  
-<script>
-  const liquidButtons = document.querySelectorAll(".btn-primary, .btn-secondary");
 
-  liquidButtons.forEach(button => {
-    button.addEventListener("click", function(e) {
 
+  /* =========================
+     MAGNETIC + RIPPLE + LIQUID
+  ========================== */
+  const buttons = document.querySelectorAll(".btn-primary, .btn-secondary");
+
+  buttons.forEach(button => {
+
+    let currentX = 0, currentY = 0;
+    let targetX = 0, targetY = 0;
+
+    button.addEventListener("mousemove", (e) => {
+      const rect = button.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+
+      targetX = x * 0.2;
+      targetY = y * 0.2;
+    });
+
+    button.addEventListener("mouseleave", () => {
+      targetX = 0;
+      targetY = 0;
+    });
+
+    button.addEventListener("click", (e) => {
       const wave = document.createElement("span");
       wave.classList.add("liquid-wave");
 
-      const rect = this.getBoundingClientRect();
+      const rect = button.getBoundingClientRect();
       const size = Math.max(rect.width, rect.height) * 1.2;
 
       wave.style.width = wave.style.height = size + "px";
       wave.style.left = e.clientX - rect.left - size / 2 + "px";
       wave.style.top = e.clientY - rect.top - size / 2 + "px";
 
-      this.appendChild(wave);
-
+      button.appendChild(wave);
       setTimeout(() => wave.remove(), 600);
     });
-  });
-</script>
 
-<script>
+    function animate() {
+      currentX += (targetX - currentX) * 0.15;
+      currentY += (targetY - currentY) * 0.15;
+
+      button.style.transform =
+        `translate(${currentX}px, ${currentY}px) scale(1.05)`;
+
+      requestAnimationFrame(animate);
+    }
+
+    animate();
+  });
+
+
+  /* =========================
+     HERO PARALLAX ULTRA PREMIUM
+  ========================== */
   const hero = document.querySelector(".hero");
   const heroContent = document.querySelector(".hero-content");
 
-  let targetX = 0;
-  let targetY = 0;
-  let currentX = 0;
-  let currentY = 0;
+  let hx = 0, hy = 0;
+  let tx = 0, ty = 0;
 
   hero.addEventListener("mousemove", (e) => {
     const rect = hero.getBoundingClientRect();
-    targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
-    targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
+    tx = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
+    ty = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
   });
 
   hero.addEventListener("mouseleave", () => {
-    targetX = 0;
-    targetY = 0;
+    tx = 0;
+    ty = 0;
   });
 
-  function animate() {
-    currentX += (targetX - currentX) * 0.08;
-    currentY += (targetY - currentY) * 0.08;
+  function heroAnimate() {
+    hx += (tx - hx) * 0.08;
+    hy += (ty - hy) * 0.08;
 
     heroContent.style.transform =
-      `rotateX(${-currentY}deg) rotateY(${currentX}deg)`;
+      `rotateX(${-hy}deg) rotateY(${hx}deg)`;
 
-    requestAnimationFrame(animate);
+    requestAnimationFrame(heroAnimate);
   }
 
-  animate();
-</script>
+  heroAnimate();
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
 
+  /* =========================
+     REVEAL + PROGRESS SYSTEM
+  ========================== */
   const revealElements = document.querySelectorAll(".reveal");
   const stepCards = document.querySelectorAll(".step-card");
   const progressLine = document.querySelector(".progress-line");
-
-  /* =========================================
-     REVEAL PRO (Intersection Observer)
-  ========================================= */
+  const stepsSection = document.querySelector(".grid-steps");
 
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
+    entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add("active");
       }
@@ -288,12 +271,6 @@ document.addEventListener("DOMContentLoaded", function () {
   }, { threshold: 0.2 });
 
   revealElements.forEach(el => observer.observe(el));
-
-  /* =========================================
-     PROGRESS LINE ANIMATION
-  ========================================= */
-
-  const stepsSection = document.querySelector(".grid-steps");
 
   function updateProgress() {
     if (!stepsSection || !progressLine) return;
@@ -317,52 +294,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
   window.addEventListener("scroll", updateProgress);
 
-  /* =========================================
-     MICRO PARALLAX ULTRA LEVE
-  ========================================= */
 
-  stepCards.forEach(card => {
-    card.addEventListener("mousemove", (e) => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      const moveX = (x - rect.width / 2) / 30;
-      const moveY = (y - rect.height / 2) / 30;
-
-      card.style.transform = `translateY(-6px) rotateX(${-moveY}deg) rotateY(${moveX}deg)`;
-    });
-
-    card.addEventListener("mouseleave", () => {
-      card.style.transform = "";
-    });
+  /* =========================
+     CURSOR GLOW SYSTEM
+  ========================== */
+  document.addEventListener("mousemove", (e) => {
+    document.body.style.setProperty("--mouse-x", e.clientX + "px");
+    document.body.style.setProperty("--mouse-y", e.clientY + "px");
   });
 
 });
 </script>
 
-  <script>
-document.addEventListener("mousemove", (e) => {
-  document.body.style.setProperty("--mouse-x", e.clientX + "px");
-  document.body.style.setProperty("--mouse-y", e.clientY + "px");
-});
-</script>
-
-  <script>
-const subtitle = document.querySelector(".subtitle");
-
-window.addEventListener("scroll", () => {
-  const scroll = window.scrollY;
-  const opacity = Math.max(1 - scroll / 300, 0);
-  const translate = scroll / 6;
-
-  subtitle.style.opacity = opacity;
-  subtitle.style.transform = `translateY(${translate}px)`;
-});
-</script>
-
 </body>
 </html> 
+
 
 
 

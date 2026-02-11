@@ -231,7 +231,21 @@ body {
   transform: translateY(-6px);
   border-color: rgba(34, 197, 94, 0.4);
 }
+/* ===============================
+   MICRO INTERACTIONS - CARDS
+   =============================== */
 
+.card {
+  transition: 
+    transform 0.4s cubic-bezier(.16,1,.3,1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
 /* FOOTER */
 .footer {
   padding: 40px;
@@ -403,6 +417,7 @@ body::before {
   opacity: 1;
   transform: translateY(0);
 }
+
 
 
 

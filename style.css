@@ -337,6 +337,17 @@ body::before {
   opacity: 1;
   transform: translateY(0);
 }
+/* ===============================
+   NAVBAR SCROLL EFFECT
+   =============================== */
+
+.navbar.scrolled {
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
 
 
 

@@ -28,9 +28,21 @@
 </section>
 
 <script type="module">
-import { login } from "./auth.js";
-document.getElementById("loginBtn").onclick = () => login();
+import { login, logout, observeAuth } from "./auth.js";
+
+const loginBtn = document.getElementById("loginBtn");
+
+observeAuth(user => {
+  if (user) {
+    loginBtn.textContent = "Cerrar sesión";
+    loginBtn.onclick = () => logout();
+  } else {
+    loginBtn.textContent = "Login";
+    loginBtn.onclick = () => login();
+  }
+});
 </script>
 
 </body>
 </html>
+

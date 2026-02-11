@@ -349,8 +349,22 @@ document.addEventListener("mousemove", (e) => {
 });
 </script>
 
+  <script>
+const subtitle = document.querySelector(".subtitle");
+
+window.addEventListener("scroll", () => {
+  const scroll = window.scrollY;
+  const opacity = Math.max(1 - scroll / 300, 0);
+  const translate = scroll / 6;
+
+  subtitle.style.opacity = opacity;
+  subtitle.style.transform = `translateY(${translate}px)`;
+});
+</script>
+
 </body>
 </html> 
+
 
 
 

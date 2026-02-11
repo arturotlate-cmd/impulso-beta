@@ -160,9 +160,35 @@
     });
   });
 </script>
+  
+  <script>
+  const liquidButtons = document.querySelectorAll(".btn-primary, .btn-secondary");
+
+  liquidButtons.forEach(button => {
+    button.addEventListener("click", function(e) {
+
+      const wave = document.createElement("span");
+      wave.classList.add("liquid-wave");
+
+      const rect = button.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+
+      wave.style.width = wave.style.height = size + "px";
+      wave.style.left = e.clientX - rect.left - size / 2 + "px";
+      wave.style.top = e.clientY - rect.top - size / 2 + "px";
+
+      this.appendChild(wave);
+
+      setTimeout(() => {
+        wave.remove();
+      }, 800);
+    });
+  });
+</script>
 
 </body>
 </html> 
+
 
 
 

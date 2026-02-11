@@ -148,6 +148,13 @@ body {
   transform: translateY(-4px);
   border-color: var(--green);
 }
+.card,
+.hero-content {
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+}
 
 /* FOOTER */
 .footer {
@@ -316,6 +323,7 @@ body::before {
   position: relative;
   z-index: 1;
 }
+
 
 
 

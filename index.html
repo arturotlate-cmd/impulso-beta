@@ -269,43 +269,82 @@
   animate();
 </script>
 
-  <script>
-  document.addEventListener("DOMContentLoaded", function () {
+<script>
+document.addEventListener("DOMContentLoaded", function () {
 
-    const stepsSection = document.querySelector(".grid-steps");
-    const progressLine = document.querySelector(".progress-line");
-    const stepCards = document.querySelectorAll(".step-card");
+  const revealElements = document.querySelectorAll(".reveal");
+  const stepCards = document.querySelectorAll(".step-card");
+  const progressLine = document.querySelector(".progress-line");
 
-    function updateProgress() {
-      if (!stepsSection) return;
+  /* =========================================
+     REVEAL PRO (Intersection Observer)
+  ========================================= */
 
-      const rect = stepsSection.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      const visible = Math.min(
-        Math.max((windowHeight - rect.top) / rect.height, 0),
-        1
-      );
-
-      if (progressLine) {
-        progressLine.style.width = visible * 80 + "%";
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
       }
+    });
+  }, { threshold: 0.2 });
 
-      stepCards.forEach((card, index) => {
-        if (visible > index * 0.3) {
-          card.style.borderColor = "rgba(34,197,94,0.4)";
-          card.style.boxShadow = "0 0 30px rgba(34,197,94,0.15)";
-        }
-      });
-    }
+  revealElements.forEach(el => observer.observe(el));
 
-    window.addEventListener("scroll", updateProgress);
+  /* =========================================
+     PROGRESS LINE ANIMATION
+  ========================================= */
 
+  const stepsSection = document.querySelector(".grid-steps");
+
+  function updateProgress() {
+    if (!stepsSection || !progressLine) return;
+
+    const rect = stepsSection.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    const progress = Math.min(
+      Math.max((windowHeight - rect.top) / rect.height, 0),
+      1
+    );
+
+    progressLine.style.setProperty("--progress", progress);
+
+    stepCards.forEach((card, i) => {
+      if (progress > i * 0.3) {
+        card.classList.add("activated");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", updateProgress);
+
+  /* =========================================
+     MICRO PARALLAX ULTRA LEVE
+  ========================================= */
+
+  stepCards.forEach(card => {
+    card.addEventListener("mousemove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const moveX = (x - rect.width / 2) / 30;
+      const moveY = (y - rect.height / 2) / 30;
+
+      card.style.transform = `translateY(-6px) rotateX(${-moveY}deg) rotateY(${moveX}deg)`;
+    });
+
+    card.addEventListener("mouseleave", () => {
+      card.style.transform = "";
+    });
   });
+
+});
 </script>
 
 </body>
 </html> 
+
 
 
 

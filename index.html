@@ -15,7 +15,7 @@
 
   <div class="nav-links">
     <a href="products.html">Explorar</a>
-    <a href="publicar.html">Publicar</a>
+    <a href="publicar.html" id="publishLink">Publicar</a>
     <a href="perfil.html">Perfil</a>
     <a href="#" id="loginBtn">Login</a>
   </div>
@@ -41,8 +41,20 @@ observeAuth(user => {
     loginBtn.onclick = () => login();
   }
 });
+
+  const publishLink = document.getElementById("publishLink");
+
+observeAuth(user => {
+  if (user) {
+    publishLink.style.display = "inline-block";
+  } else {
+    publishLink.style.display = "none";
+  }
+});
+
 </script>
 
 </body>
 </html>
+
 

@@ -110,6 +110,30 @@
     }
   });
 </script>
+  
+<script>
+  const magneticButtons = document.querySelectorAll(".btn-primary, .btn-secondary");
+
+  magneticButtons.forEach((button) => {
+    button.addEventListener("mousemove", (e) => {
+      const rect = button.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      const moveX = (x - centerX) / 8;
+      const moveY = (y - centerY) / 8;
+
+      button.style.transform = `translate(${moveX}px, ${moveY}px) scale(1.05)`;
+    });
+
+    button.addEventListener("mouseleave", () => {
+      button.style.transform = "translate(0px, 0px) scale(1)";
+    });
+  });
+</script>
 
 <script>
   const reveals = document.querySelectorAll(".reveal");
@@ -127,6 +151,7 @@
 
 </body>
 </html> 
+
 
 
 

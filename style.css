@@ -693,6 +693,24 @@ body::after {
   opacity: 1;
   transform: translateY(0);
 }
+/* =========================================
+   GLOBAL SPOTLIGHT
+========================================= */
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x) var(--mouse-y),
+    rgba(34,197,94,0.08),
+    transparent 40%
+  );
+  pointer-events: none;
+  z-index: 0;
+  transition: background 0.15s ease;
+}
+
 
 
 

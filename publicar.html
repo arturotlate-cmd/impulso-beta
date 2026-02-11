@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Publicar | IMPULSO</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Publicar producto</h2>
+
+<form id="form">
+  <input type="text" id="title" placeholder="Título" required>
+  <input type="number" id="price" placeholder="Precio" required>
+  <textarea id="description" placeholder="Descripción" required></textarea>
+  <button type="submit">Publicar</button>
+</form>
+
+<script type="module">
+import { db } from "./firebase.js";
+import { auth } from "./firebase.js";
+import { protectPage } from "./auth.js";
+import { collection, addDoc } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+protectPage();
+
+document.getElementById("form").addEventListener("submit", async e => {
+  e.preventDefault();
+
+  const user = auth.currentUser;
+
+  await addDoc(collection(db, "products"), {
+    title: title.value,
+    price: price.value,
+    description: description.value,
+    sellerId: user.uid,
+    sellerName: user.displayName,
+    createdAt: new Date()
+  });
+
+  window.location.href = "products.html";
+});
+</script>
+
+</body>
+</html>

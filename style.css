@@ -236,6 +236,34 @@ button:focus-visible {
   border-radius: var(--radius-md);
   transition: box-shadow var(--duration-fast) var(--ease-smooth);
 }
+   /* ===============================
+   LAYOUT SYSTEM
+   =============================== */
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+}
+
+.section {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-6);
+}
+
+/* Mejora visual para secciones internas */
+.section h2 {
+  font-size: var(--text-3xl);
+  margin-bottom: var(--space-4);
+  letter-spacing: -0.02em;
+}
+
+.section p {
+  font-size: var(--text-lg);
+  color: #cbd5e1;
+  margin-bottom: var(--space-2);
+}
 /* ===============================
    SECTIONS
 =============================== */
@@ -326,6 +354,7 @@ button:focus-visible {
     transition: none !important;
   }
 }
+
 
 
 

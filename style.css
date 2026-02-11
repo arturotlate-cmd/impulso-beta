@@ -411,6 +411,21 @@ body::before {
     width: 100%;
   }
 }
+/* ===============================
+   SCROLL REVEAL ANIMATION
+   =============================== */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s cubic-bezier(.16,1,.3,1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 
 
 

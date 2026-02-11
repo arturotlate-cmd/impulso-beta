@@ -184,41 +184,42 @@
   });
 </script>
 
-  <script>
+<script>
   const hero = document.querySelector(".hero");
   const heroContent = document.querySelector(".hero-content");
 
+  let targetX = 0;
+  let targetY = 0;
+  let currentX = 0;
+  let currentY = 0;
+
   hero.addEventListener("mousemove", (e) => {
     const rect = hero.getBoundingClientRect();
-
-    const x = (e.clientX - rect.left) / rect.width;
-    const y = (e.clientY - rect.top) / rect.height;
-
-    const moveX = (x - 0.5) * 20;  // intensidad horizontal
-    const moveY = (y - 0.5) * 20;  // intensidad vertical
-
-    heroContent.style.transform =
-      `rotateX(${ -moveY * 0.3 }deg) rotateY(${ moveX * 0.3 }deg)`;
-
-    hero.style.setProperty(
-      "--glowX",
-      `${(x - 0.5) * 40}px`
-    );
-
-    hero.style.setProperty(
-      "--glowY",
-      `${(y - 0.5) * 40}px`
-    );
+    targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 12;
+    targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 12;
   });
 
   hero.addEventListener("mouseleave", () => {
-    heroContent.style.transform =
-      "rotateX(0deg) rotateY(0deg)";
+    targetX = 0;
+    targetY = 0;
   });
+
+  function animate() {
+    currentX += (targetX - currentX) * 0.08;
+    currentY += (targetY - currentY) * 0.08;
+
+    heroContent.style.transform =
+      `rotateX(${-currentY}deg) rotateY(${currentX}deg)`;
+
+    requestAnimationFrame(animate);
+  }
+
+  animate();
 </script>
 
 </body>
 </html> 
+
 
 
 

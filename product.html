@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle del Servicio | IMPULSO</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">IMPULSO</div>
+  <div class="nav-links">
+    <a href="products.html">Explorar</a>
+    <a href="publicar.html">Publicar</a>
+    <a href="perfil.html">Perfil</a>
+    <a href="#" id="loginBtn">Login</a>
+  </div>
+</nav>
+
+<section class="product-detail">
+  <div class="detail-card">
+    <h2 id="productTitle"></h2>
+    <p id="productDescription"></p>
+    <h3 id="productPrice"></h3>
+    <p class="seller" id="productSeller"></p>
+
+    <button id="contactBtn" class="btn-primary">
+      Contactar vendedor
+    </button>
+  </div>
+</section>
+
+<script type="module">
+import { observeAuth, login, logout } from "./auth.js";
+import {
+  getFirestore,
+  doc,
+  getDoc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const db = getFirestore();
+const loginBtn = document.getElementById("loginBtn");
+const contactBtn = document.getElementById("contactBtn");
+
+const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
+
+if (!productId) {
+  window.location.href = "products.html";
+}
+
+/* 🔐 Navbar dinámico */
+observeAuth(user => {
+  if (user) {
+    loginBtn.textContent = "Cerrar sesión";
+    loginBtn.onclick = () => logout();
+  } else {
+    loginBtn.textContent = "Login";
+    loginBtn.onclick = () => login();
+  }
+});
+
+/* 📦 Cargar producto */
+async function loadProduct() {
+
+  const docRef = doc(db, "products", productId);
+  const snapshot = await getDoc(docRef);
+
+  if (!snapshot.exists()) {
+    window.location.href = "products.html";
+    return;
+  }
+
+  const data = snapshot.data();
+
+  document.getElementById("productTitle").textContent = data.title;
+  document.getElementById("productDescription").textContent = data.description;
+  document.getElementById("productPrice").textContent = "$" + data.price;
+  document.getElementById("productSeller").textContent =
+    "Publicado por " + data.sellerName;
+
+}
+
+contactBtn.onclick = () => {
+  window.location.href = `chat.html?product=${productId}`;
+};
+
+loadProduct();
+
+</script>
+
+</body>
+</html>

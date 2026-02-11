@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IMPULSO | Marketplace</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<nav class="navbar">
+  <div class="logo">IMPULSO</div>
+
+  <div class="nav-links">
+    <a href="products.html">Explorar</a>
+    <a href="publicar.html">Publicar</a>
+    <a href="perfil.html">Perfil</a>
+    <a href="#" id="loginBtn">Login</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <h1>Conecta. Ofrece. Impulsa.</h1>
+  <p>Marketplace de servicios sin intermediación en pagos.</p>
+  <a href="products.html" class="btn-primary">Explorar servicios</a>
+</section>
+
+<script type="module">
+import { login } from "./auth.js";
+document.getElementById("loginBtn").onclick = () => login();
+</script>
+
+</body>
+</html>

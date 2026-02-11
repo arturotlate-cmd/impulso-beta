@@ -179,26 +179,38 @@ body {
 }
 
 /* ===============================
-   MICRO INTERACTIONS - BUTTONS
+   MICRO INTERACTIONS - BUTTONS (PREMIUM)
    =============================== */
 
 .btn-primary,
 .btn-secondary {
+  position: relative;
   transition: 
-    transform 0.25s cubic-bezier(.34,1.56,.64,1),
-    box-shadow 0.25s ease,
+    transform 0.35s cubic-bezier(.16,1,.3,1),
+    box-shadow 0.35s cubic-bezier(.16,1,.3,1),
     background 0.25s ease,
     color 0.25s ease;
+  will-change: transform;
 }
 
-.btn-primary:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 15px 40px rgba(34, 197, 94, 0.25);
-}
-
+/* Elevación suave */
+.btn-primary:hover,
 .btn-secondary:hover {
-  transform: translateY(-4px) scale(1.02);
-  box-shadow: 0 15px 40px rgba(34, 197, 94, 0.15);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+}
+
+/* Primary glow refinado */
+.btn-primary:hover {
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.35),
+    0 0 30px rgba(34, 197, 94, 0.25);
+}
+
+/* Secondary glow más sutil */
+.btn-secondary:hover {
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.3),
+    0 0 20px rgba(34, 197, 94, 0.15);
 }
 
 /* SECTIONS */
@@ -433,6 +445,7 @@ body::before {
 .btn-secondary:active {
   transform: scale(0.97);
 }
+
 
 
 

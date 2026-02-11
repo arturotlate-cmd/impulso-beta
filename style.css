@@ -83,32 +83,30 @@ body {
 }
 
 .btn-primary {
-  background: var(--green);
-  padding: 12px 24px;
-  border-radius: 8px;
-  color: #052e16;
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.3s;
+  background: #2563eb;
+  padding: 14px 28px;
+  border-radius: 10px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(37, 99, 235, 0.25);
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(37, 99, 235, 0.35);
 }
 
 .btn-secondary {
-  border: 1px solid var(--green);
-  padding: 12px 24px;
-  border-radius: 8px;
-  color: var(--green);
-  text-decoration: none;
-  font-weight: 600;
-  transition: 0.3s;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  padding: 14px 28px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
-  background: var(--green);
-  color: #052e16;
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-3px);
 }
 
 /* SECTIONS */
@@ -137,17 +135,18 @@ body {
 
 /* CARD */
 .card {
-  background: #1e293b;
-  padding: 30px;
-  border-radius: 14px;
-  transition: 0.3s;
-  border: 1px solid #334155;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.3s ease;
 }
 
 .card:hover {
-  transform: translateY(-4px);
-  border-color: var(--green);
+  transform: translateY(-5px);
+  border-color: rgba(255,255,255,0.12);
 }
+
 .card,
 .hero-content {
   background: rgba(255,255,255,0.04);
@@ -205,14 +204,18 @@ body {
    =============================== */
 
 .hero {
-  animation: fadeUp 1.2s ease forwards;
-  opacity: 0;
+  padding: 120px 20px;
+  text-align: center;
+  position: relative;
+  z-index: 1;
 }
-
 .hero h1 {
-  animation: fadeUp 1.2s ease forwards;
-  animation-delay: 0.2s;
-  opacity: 0;
+  font-size: 3rem;
+  font-weight: 600;
+  letter-spacing: -1px;
+  background: linear-gradient(90deg, #ffffff, #cbd5e1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .hero p {
@@ -360,6 +363,22 @@ body::before {
     transform: translate(10%, 10%);
   }
 }
+.hero-content {
+  animation: fadeUp 1s ease forwards;
+  opacity: 0;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 
 

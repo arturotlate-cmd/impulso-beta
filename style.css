@@ -444,6 +444,36 @@ body::after {
     display: none;
   }
 }
+/* =========================================
+   STEPS AMBIENT GLOW
+========================================= */
+
+.grid-steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-5);
+  z-index: 1;
+}
+
+.grid-steps::after {
+  content: "";
+  position: absolute;
+  width: 800px;
+  height: 400px;
+  background: radial-gradient(
+    circle,
+    rgba(34,197,94,0.12),
+    transparent 70%
+  );
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: blur(80px);
+  z-index: -1;
+  pointer-events: none;
+}
+
 
 
 

@@ -40,15 +40,19 @@ observeAuth(async user => {
     return;
   }
 
-  userInfo.innerHTML = `<p><strong>${user.displayName}</strong><br>${user.email}</p>`;
+  userInfo.innerHTML = `
+    <p><strong>${user.displayName}</strong></p>
+    <p>${user.email}</p>
+  `;
 
-  // PRODUCTOS DEL USUARIO
   const productQuery = query(
     collection(db, "products"),
     where("ownerId", "==", user.uid)
   );
 
   const productSnap = await getDocs(productQuery);
+
+  myProducts.innerHTML = "";
 
   productSnap.forEach(docSnap => {
     const product = docSnap.data();
@@ -61,7 +65,6 @@ observeAuth(async user => {
     myProducts.appendChild(div);
   });
 
-  // CHATS DEL USUARIO
   const chatQuery = query(
     collection(db, "chats"),
     where("participants", "array-contains", user.uid)
@@ -91,6 +94,8 @@ observeAuth(async user => {
 
 </body>
 </html>
+
+
 
 
 

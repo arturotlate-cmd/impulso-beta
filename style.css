@@ -75,7 +75,10 @@ pointer-events:none;
 z-index:0;
 transition:background .15s ease;
 }
-
+body {
+  overflow-x: hidden;
+  will-change: transform;
+}
 /* NAVBAR */
 .navbar{
 position:fixed;
@@ -299,6 +302,15 @@ padding:60px;
 text-align:center;
 background:rgba(11,18,32,.9);
 color:#64748b;
+}
+.hero-light {
+  position:absolute;
+  width:500px;
+  height:500px;
+  background: radial-gradient(circle, rgba(34,197,94,0.15), transparent 60%);
+  pointer-events:none;
+  transform: translate(-50%, -50%);
+  transition: 0.1s ease;
 }
 
 

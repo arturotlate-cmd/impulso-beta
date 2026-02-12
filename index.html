@@ -256,8 +256,29 @@ document.addEventListener("mousemove", e=>{
 });
 </script>
 
+  <script type="module">
+import { loginWithGoogle, logout, observeAuth } from "./auth.js";
+
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+observeAuth(user => {
+  if (user) {
+    loginBtn.style.display = "none";
+    logoutBtn.style.display = "inline-block";
+  } else {
+    loginBtn.style.display = "inline-block";
+    logoutBtn.style.display = "none";
+  }
+});
+
+loginBtn.addEventListener("click", loginWithGoogle);
+logoutBtn.addEventListener("click", logout);
+</script>
+
 </body>
 </html>
+
 
 
 

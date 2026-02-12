@@ -256,8 +256,8 @@ document.addEventListener("mousemove", e=>{
 });
 </script>
 
-  <script type="module">
-import { loginWithGoogle, logout, observeAuth } from "./auth.js";
+<script type="module">
+import { loginWithGoogle, logoutUser, observeAuth } from "./auth.js";
 
 const loginBtn = document.getElementById("loginBtn");
 const logoutBtn = document.getElementById("logoutBtn");
@@ -273,11 +273,12 @@ observeAuth(user => {
 });
 
 loginBtn.addEventListener("click", loginWithGoogle);
-logoutBtn.addEventListener("click", logout);
+logoutBtn.addEventListener("click", logoutUser);
 </script>
 
 </body>
 </html>
+
 
 
 

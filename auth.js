@@ -1,25 +1,42 @@
 // auth.js
 import { auth } from "./firebase.js";
-import {
-  GoogleAuthProvider,
-  signInWithPopup,
+import { 
+  GoogleAuthProvider, 
+  signInWithPopup, 
   signOut,
   onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const provider = new GoogleAuthProvider();
 
-export function login() {
-  signInWithPopup(auth, provider);
+const loginBtn = document.getElementById("loginBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+if (loginBtn) {
+  loginBtn.addEventListener("click", async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch (error) {
+      console.error("Error login:", error);
+    }
+  });
 }
 
-export function logout() {
-  signOut(auth);
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", async () => {
+    await signOut(auth);
+  });
 }
 
-export function observeAuth(callback) {
-  onAuthStateChanged(auth, callback);
-}
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("Usuario logueado:", user.email);
+  } else {
+    console.log("No autenticado");
+  }
+});
+
+
 
 
 

@@ -442,20 +442,19 @@ color:#64748b;
 }
 
 /* =========================
-   PREMIUM CURSOR
+   PREMIUM CURSOR (Desktop only)
 ========================= */
-.cursor {
-  position:fixed;
-  width:18px;
-  height:18px;
-  border-radius:50%;
-  background:rgba(34,197,94,0.6);
-  pointer-events:none;
-  transform:translate(-50%,-50%);
-  mix-blend-mode:difference;
-  transition: transform 0.08s linear;
-  z-index:9999;
+if (window.innerWidth > 1024) {
+  const cursor = document.querySelector(".cursor");
+
+  document.addEventListener("mousemove", e=>{
+    cursor.style.transform = `translate(${e.clientX}px,${e.clientY}px)`;
+  });
+} else {
+  const cursor = document.querySelector(".cursor");
+  if(cursor) cursor.style.display = "none";
 }
+
 /* Mejoras de rendimiento */
 * {
   -webkit-font-smoothing: antialiased;
@@ -477,6 +476,7 @@ body {
     transition: none !important;
   }
 }
+
 
 
 

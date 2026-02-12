@@ -456,6 +456,28 @@ color:#64748b;
   transition: transform 0.08s linear;
   z-index:9999;
 }
+/* Mejoras de rendimiento */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Reduce animaciones en dispositivos lentos */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
 
 
 

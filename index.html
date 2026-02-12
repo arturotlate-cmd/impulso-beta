@@ -11,7 +11,8 @@
 </head>
 <body>
 
-<div class="page-wrapper">
+<div class="smooth-wrapper">
+<div class="smooth-content">
 
 <nav class="navbar">
   <div class="nav-container">
@@ -26,7 +27,7 @@
 
 <section class="hero">
   <div class="mesh-bg"></div>
-  <div class="hero-depth"></div>
+  <div class="hero-glow"></div>
 
   <div class="hero-content">
     <h1>Conecta. Ofrece. Impulsa.</h1>
@@ -95,18 +96,38 @@
 </footer>
 
 </div>
+</div>
+
+<div class="cursor"></div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
 /* =========================
-   PAGE FADE IN
+   SMOOTH SCROLL ENGINE
 ========================= */
-document.body.style.opacity = 0;
-setTimeout(() => {
-  document.body.style.transition = "opacity 0.8s ease";
-  document.body.style.opacity = 1;
-}, 50);
+const wrapper = document.querySelector(".smooth-wrapper");
+const content = document.querySelector(".smooth-content");
+
+let current = 0;
+let target = 0;
+
+function resize() {
+  document.body.style.height = content.getBoundingClientRect().height + "px";
+}
+resize();
+window.addEventListener("resize", resize);
+
+window.addEventListener("scroll", () => {
+  target = window.scrollY;
+});
+
+function smoothScroll() {
+  current += (target - current) * 0.08;
+  content.style.transform = `translateY(${-current}px)`;
+  requestAnimationFrame(smoothScroll);
+}
+smoothScroll();
 
 
 /* =========================
@@ -114,42 +135,22 @@ setTimeout(() => {
 ========================= */
 const navbar = document.querySelector(".navbar");
 window.addEventListener("scroll", () => {
-  navbar.classList.toggle("scrolled", window.scrollY > 40);
+  navbar.classList.toggle("scrolled", window.scrollY > 50);
 });
 
 
 /* =========================
-   SMOOTH SCROLL ENGINE
-========================= */
-const wrapper = document.querySelector(".page-wrapper");
-let current = 0;
-let target = 0;
-
-window.addEventListener("scroll", () => {
-  target = window.scrollY;
-});
-
-function smooth() {
-  current += (target - current) * 0.08;
-  wrapper.style.transform = `translateY(${-current}px)`;
-  requestAnimationFrame(smooth);
-}
-smooth();
-
-
-/* =========================
-   HERO DEPTH PARALLAX
+   HERO GLOW PARALLAX
 ========================= */
 const hero = document.querySelector(".hero");
-const heroDepth = document.querySelector(".hero-depth");
+const glow = document.querySelector(".hero-glow");
 
 hero.addEventListener("mousemove", e => {
   const rect = hero.getBoundingClientRect();
   const x = (e.clientX - rect.left) / rect.width - 0.5;
   const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-  heroDepth.style.transform =
-    `translate(${x * 40}px, ${y * 40}px)`;
+  glow.style.transform = `translate(${x*60}px, ${y*60}px)`;
 });
 
 
@@ -183,22 +184,18 @@ document.querySelectorAll(".btn-primary, .btn-secondary")
 
 
 /* =========================
-   CARD ELEVATION FOLLOW CURSOR
+   CARD LIGHT EFFECT
 ========================= */
 document.querySelectorAll(".step-card, .feature-card")
 .forEach(card => {
 
   card.addEventListener("mousemove", e=>{
     const rect = card.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-    card.style.transform =
-      `rotateX(${ -y*6 }deg) rotateY(${ x*6 }deg)`;
-  });
-
-  card.addEventListener("mouseleave", ()=>{
-    card.style.transform = "rotateX(0) rotateY(0)";
+    card.style.setProperty("--x", x + "px");
+    card.style.setProperty("--y", y + "px");
   });
 
 });
@@ -232,11 +229,22 @@ window.addEventListener("scroll", ()=>{
   progress.style.setProperty("--progress", p);
 });
 
+
+/* =========================
+   PREMIUM CURSOR
+========================= */
+const cursor = document.querySelector(".cursor");
+
+document.addEventListener("mousemove", e=>{
+  cursor.style.transform = `translate(${e.clientX}px,${e.clientY}px)`;
+});
+
 });
 </script>
 
 </body>
 </html>
+
 
 
 

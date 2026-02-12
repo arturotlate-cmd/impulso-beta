@@ -388,6 +388,75 @@ color:#64748b;
   opacity:1;
   transform: translateY(0);
 }
+/* =========================
+   SMOOTH SYSTEM
+========================= */
+.smooth-wrapper {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.smooth-content {
+  will-change: transform;
+}
+
+/* =========================
+   HERO PREMIUM
+========================= */
+.hero-glow {
+  position:absolute;
+  width:700px;
+  height:700px;
+  background: radial-gradient(circle, rgba(34,197,94,0.2), transparent 70%);
+  filter: blur(140px);
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  z-index:-1;
+  transition: transform 0.2s ease;
+}
+
+/* =========================
+   CARD LIGHT INTERACTION
+========================= */
+.step-card::before,
+.feature-card::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background: radial-gradient(
+    400px circle at var(--x) var(--y),
+    rgba(255,255,255,0.08),
+    transparent 40%
+  );
+  opacity:0;
+  transition: opacity 0.3s ease;
+  pointer-events:none;
+}
+
+.step-card:hover::before,
+.feature-card:hover::before {
+  opacity:1;
+}
+
+/* =========================
+   PREMIUM CURSOR
+========================= */
+.cursor {
+  position:fixed;
+  width:18px;
+  height:18px;
+  border-radius:50%;
+  background:rgba(34,197,94,0.6);
+  pointer-events:none;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:difference;
+  transition: transform 0.08s linear;
+  z-index:9999;
+}
+
 
 
 

@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>IMPULSO | Marketplace de Servicios</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>IMPULSO | Marketplace de Servicios</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+
 </head>
-
 <body>
+
+<div class="page-wrapper">
 
 <nav class="navbar">
   <div class="nav-container">
-    <div class="logo">
-      <span class="logo-text">IMPULSO</span>
-    </div>
-
+    <div class="logo">IMPULSO</div>
     <div class="nav-links">
       <a href="products.html">Explorar</a>
       <a href="publicar.html">Publicar</a>
@@ -25,14 +24,16 @@
   </div>
 </nav>
 
-
 <section class="hero">
-  <div class="hero-light"></div>
+  <div class="mesh-bg"></div>
+  <div class="hero-depth"></div>
+
   <div class="hero-content">
     <h1>Conecta. Ofrece. Impulsa.</h1>
     <p class="subtitle">
       Marketplace de servicios sin intermediación en pagos.
     </p>
+
     <div class="hero-buttons">
       <a href="products.html" class="btn-primary">Explorar servicios</a>
       <a href="publicar.html" class="btn-secondary">Publicar servicio</a>
@@ -40,34 +41,27 @@
   </div>
 </section>
 
-
 <section class="steps">
   <div class="container">
-
-    <h2 class="section-title reveal">
-      Cómo funciona
-    </h2>
+    <h2 class="section-title reveal">Cómo funciona</h2>
 
     <div class="grid-steps">
       <div class="progress-line"></div>
 
       <div class="step-card reveal">
         <span class="step-number">01</span>
-        <div class="step-icon">+</div>
         <h3>Publica</h3>
         <p>Describe tu servicio de forma clara y profesional.</p>
       </div>
 
       <div class="step-card reveal">
         <span class="step-number">02</span>
-        <div class="step-icon">●</div>
         <h3>Conecta</h3>
         <p>Recibe solicitudes de clientes interesados.</p>
       </div>
 
       <div class="step-card reveal">
         <span class="step-number">03</span>
-        <div class="step-icon">✓</div>
         <h3>Crece</h3>
         <p>Construye reputación y aumenta tus ingresos.</p>
       </div>
@@ -76,22 +70,18 @@
   </div>
 </section>
 
-
 <section class="section">
   <div class="container">
     <h2>Confianza y seguridad</h2>
-
     <div class="grid-features">
       <div class="feature-card reveal">
         <h3>Autenticación segura</h3>
         <p>Acceso mediante Google.</p>
       </div>
-
       <div class="feature-card reveal">
         <h3>Chat privado</h3>
         <p>Solo comprador y vendedor pueden comunicarse.</p>
       </div>
-
       <div class="feature-card reveal">
         <h3>Transparencia</h3>
         <p>IMPULSO no interviene en pagos por el momento.</p>
@@ -100,97 +90,117 @@
   </div>
 </section>
 
-
 <footer class="footer">
   © 2026 IMPULSO · Impulsando oportunidades
 </footer>
 
-
+</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
 
 /* =========================
-   NAVBAR STATE
+   PAGE FADE IN
+========================= */
+document.body.style.opacity = 0;
+setTimeout(() => {
+  document.body.style.transition = "opacity 0.8s ease";
+  document.body.style.opacity = 1;
+}, 50);
+
+
+/* =========================
+   NAVBAR SCROLL STATE
 ========================= */
 const navbar = document.querySelector(".navbar");
 window.addEventListener("scroll", () => {
-  navbar.classList.toggle("scrolled", window.scrollY > 50);
+  navbar.classList.toggle("scrolled", window.scrollY > 40);
 });
 
 
 /* =========================
-   SCROLL INERTIA
+   SMOOTH SCROLL ENGINE
 ========================= */
-let currentScroll = 0;
-let targetScroll = 0;
+const wrapper = document.querySelector(".page-wrapper");
+let current = 0;
+let target = 0;
 
 window.addEventListener("scroll", () => {
-  targetScroll = window.scrollY;
+  target = window.scrollY;
 });
 
-function smoothScroll() {
-  currentScroll += (targetScroll - currentScroll) * 0.08;
-  document.body.style.transform = `translateY(${-currentScroll}px)`;
-  requestAnimationFrame(smoothScroll);
+function smooth() {
+  current += (target - current) * 0.08;
+  wrapper.style.transform = `translateY(${-current}px)`;
+  requestAnimationFrame(smooth);
 }
-smoothScroll();
+smooth();
 
 
 /* =========================
-   HERO LIGHT SYSTEM
+   HERO DEPTH PARALLAX
 ========================= */
 const hero = document.querySelector(".hero");
-const heroLight = document.querySelector(".hero-light");
+const heroDepth = document.querySelector(".hero-depth");
 
-hero.addEventListener("mousemove", (e) => {
-  heroLight.style.left = e.clientX + "px";
-  heroLight.style.top = e.clientY + "px";
+hero.addEventListener("mousemove", e => {
+  const rect = hero.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+  heroDepth.style.transform =
+    `translate(${x * 40}px, ${y * 40}px)`;
 });
 
 
 /* =========================
    MAGNETIC BUTTONS
 ========================= */
-const buttons = document.querySelectorAll(".btn-primary, .btn-secondary");
+document.querySelectorAll(".btn-primary, .btn-secondary")
+.forEach(btn => {
 
-buttons.forEach(button => {
+  let cx=0, cy=0, tx=0, ty=0;
 
-  let cx = 0, cy = 0;
-  let tx = 0, ty = 0;
-
-  button.addEventListener("mousemove", (e) => {
-    const rect = button.getBoundingClientRect();
-    tx = (e.clientX - rect.left - rect.width/2) * 0.2;
-    ty = (e.clientY - rect.top - rect.height/2) * 0.2;
+  btn.addEventListener("mousemove", e=>{
+    const r = btn.getBoundingClientRect();
+    tx = (e.clientX - r.left - r.width/2)*0.25;
+    ty = (e.clientY - r.top - r.height/2)*0.25;
   });
 
-  button.addEventListener("mouseleave", () => {
-    tx = 0; ty = 0;
+  btn.addEventListener("mouseleave", ()=>{
+    tx=0; ty=0;
   });
 
-  button.addEventListener("click", (e) => {
-    const wave = document.createElement("span");
-    wave.classList.add("liquid-wave");
-
-    const rect = button.getBoundingClientRect();
-    const size = Math.max(rect.width, rect.height);
-
-    wave.style.width = wave.style.height = size + "px";
-    wave.style.left = e.clientX - rect.left - size/2 + "px";
-    wave.style.top = e.clientY - rect.top - size/2 + "px";
-
-    button.appendChild(wave);
-    setTimeout(() => wave.remove(), 600);
-  });
-
-  function animate(){
-    cx += (tx - cx) * 0.15;
-    cy += (ty - cy) * 0.15;
-    button.style.transform = `translate(${cx}px, ${cy}px) scale(1.05)`;
-    requestAnimationFrame(animate);
+  function anim(){
+    cx += (tx - cx)*0.15;
+    cy += (ty - cy)*0.15;
+    btn.style.transform =
+      `translate(${cx}px,${cy}px) scale(1.05)`;
+    requestAnimationFrame(anim);
   }
-  animate();
+  anim();
+});
+
+
+/* =========================
+   CARD ELEVATION FOLLOW CURSOR
+========================= */
+document.querySelectorAll(".step-card, .feature-card")
+.forEach(card => {
+
+  card.addEventListener("mousemove", e=>{
+    const rect = card.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+    card.style.transform =
+      `rotateX(${ -y*6 }deg) rotateY(${ x*6 }deg)`;
+  });
+
+  card.addEventListener("mouseleave", ()=>{
+    card.style.transform = "rotateX(0) rotateY(0)";
+  });
+
 });
 
 
@@ -199,37 +209,27 @@ buttons.forEach(button => {
 ========================= */
 const reveals = document.querySelectorAll(".reveal");
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
     if(entry.isIntersecting){
       entry.target.classList.add("active");
     }
   });
-},{ threshold: 0.2 });
+},{threshold:0.2});
 
-reveals.forEach(el => observer.observe(el));
+reveals.forEach(el=>observer.observe(el));
 
 
 /* =========================
    PROGRESS LINE
 ========================= */
-const stepsSection = document.querySelector(".grid-steps");
-const progressLine = document.querySelector(".progress-line");
+const steps = document.querySelector(".grid-steps");
+const progress = document.querySelector(".progress-line");
 
-function updateProgress(){
-  const rect = stepsSection.getBoundingClientRect();
-  const progress = Math.min(Math.max((window.innerHeight - rect.top)/rect.height,0),1);
-  progressLine.style.setProperty("--progress", progress);
-}
-window.addEventListener("scroll", updateProgress);
-
-
-/* =========================
-   CURSOR GLOW
-========================= */
-document.addEventListener("mousemove", (e)=>{
-  document.body.style.setProperty("--mouse-x", e.clientX+"px");
-  document.body.style.setProperty("--mouse-y", e.clientY+"px");
+window.addEventListener("scroll", ()=>{
+  const rect = steps.getBoundingClientRect();
+  const p = Math.min(Math.max((window.innerHeight - rect.top)/rect.height,0),1);
+  progress.style.setProperty("--progress", p);
 });
 
 });
@@ -237,6 +237,8 @@ document.addEventListener("mousemove", (e)=>{
 
 </body>
 </html>
+
+
 
 
 

@@ -1,4 +1,3 @@
-  // auth.js
 import { auth } from "./firebase.js";
 import {
   GoogleAuthProvider,
@@ -9,9 +8,6 @@ import {
 
 const provider = new GoogleAuthProvider();
 
-/* =========================
-   LOGIN GOOGLE
-========================= */
 export async function loginWithGoogle() {
   try {
     await signInWithPopup(auth, provider);
@@ -20,21 +16,17 @@ export async function loginWithGoogle() {
   }
 }
 
-/* =========================
-   LOGOUT
-========================= */
 export async function logoutUser() {
   await signOut(auth);
 }
 
-/* =========================
-   OBSERVER GLOBAL
-========================= */
 export function observeAuth(callback) {
   onAuthStateChanged(auth, user => {
     callback(user);
   });
 }
+
+
 
 
 

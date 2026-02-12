@@ -1,4 +1,4 @@
-// auth.js
+  // auth.js
 import { auth } from "./firebase.js";
 import {
   GoogleAuthProvider,
@@ -35,6 +35,7 @@ export function observeAuth(callback) {
     callback(user);
   });
 }
+
 
 
 
